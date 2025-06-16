@@ -1,58 +1,64 @@
 // src/App.js
-
 import React, { useContext } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 
-// Voorbeeld van een homepagina
+// Eenvoudige homepage voor alle bezoekers
 function HomePage() {
-  return <h1>Welkom op de Homepagina!</h1>;
+  return (
+      <section>
+        <h1>Welkom op de Homepagina!</h1>
+        <p>Blader rond, of log in om je favorieten te beheren.</p>
+      </section>
+  );
 }
 
-// Voorbeeld van een profielpagina
+// Alleen toegankelijk voor ingelogde gebruikers
 function ProfilePage() {
   const { user, logout } = useContext(AuthContext);
 
   return (
-      <div>
+      <section>
         <h1>Profielpagina</h1>
-        {/* Zorg ervoor dat user bestaat voordat je de property aanroept */}
-        {user && <p>Welkom terug, {user.username}!</p>}
-        <button type="button" onClick={logout}>Uitloggen</button>
-      </div>
+        {user
+            ? <p>Welkom terug, <strong>{user.username}</strong>!</p>
+            : <p>Geen gebruikersdata beschikbaar.</p>
+        }
+        <button onClick={logout}>Uitloggen</button>
+      </section>
   );
 }
 
-// Component voor beveiligde routes (Private Routes)
+// Wrapper voor private routes
 function PrivateRoute({ children }) {
   const { isAuth } = useContext(AuthContext);
-  return isAuth === true ? children : <Navigate to="/inloggen" />;
+  return isAuth
+      ? children
+      : <Navigate to="/inloggen" replace />;
 }
 
-// Hoofd App component
-function App() {
+// Hoofdcomponent met navigatie en routing
+export default function App() {
   const { isAuth } = useContext(AuthContext);
 
   return (
       <>
+        {/* Globale navigatiebalk */}
         <nav>
           <Link to="/">Home</Link>
-          {isAuth === true ? (
-              <>
-                {' | '}
-                <Link to="/profiel">Profiel</Link>
-              </>
-          ) : (
-              <>
-                {' | '}
-                <Link to="/inloggen">Inloggen</Link>
-                {' | '}
-                <Link to="/registreren">Registreren</Link>
-              </>
-          )}
+          {isAuth
+              ? <> {' | '}<Link to="/profiel">Profiel</Link> </>
+              : (
+                  <>
+                    {' | '}<Link to="/inloggen">Inloggen</Link>
+                    {' | '}<Link to="/registreren">Registreren</Link>
+                  </>
+              )
+          }
         </nav>
+
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -66,10 +72,10 @@ function App() {
                   </PrivateRoute>
                 }
             />
+            {/* 404-fallback */}
+            <Route path="*" element={<h2>Pagina niet gevonden</h2>} />
           </Routes>
         </main>
       </>
   );
 }
-
-export default App;

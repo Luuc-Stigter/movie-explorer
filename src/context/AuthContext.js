@@ -1,8 +1,6 @@
-// src/context/AuthContext.js
-
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 export const AuthContext = createContext({});
@@ -16,11 +14,10 @@ function AuthContextProvider({ children }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check of er een token in Local Storage staat bij het laden van de app
         const token = localStorage.getItem('token');
 
         if (token) {
-            const decodedToken = jwt_decode(token);
+            const decodedToken = jwtDecode(token);
             fetchUserData(decodedToken.sub, token);
         } else {
             setIsAuth({
@@ -39,12 +36,14 @@ function AuthContextProvider({ children }) {
 
             const token = response.data.jwt;
             localStorage.setItem('token', token);
-            const decodedToken = jwt_decode(token);
+
+            const decodedToken = jwtDecode(token);
 
             await fetchUserData(decodedToken.sub, token, '/profiel');
 
         } catch (e) {
             console.error("Onjuiste email of wachtwoord", e);
+
         }
     }
 
