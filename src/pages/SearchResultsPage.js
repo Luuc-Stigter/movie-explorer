@@ -22,21 +22,16 @@ function SearchResultsPage() {
 
             let endpoint;
             let params = {};
-            let title = '';
 
             if (genre) {
                 endpoint = '/discover/movie';
                 params = { with_genres: genre };
-                title = 'Gefilterde Films';
             } else if (query) {
                 endpoint = '/search/movie';
                 params = { query };
-                title = `Zoekresultaten voor "${query}"`;
             } else {
                 endpoint = '/movie/popular';
-                title = 'Populaire Films';
             }
-            setPageTitle(title);
 
             try {
                 const response = await tmdb.get(endpoint, { params });
@@ -46,10 +41,24 @@ function SearchResultsPage() {
                     fetchedMovies = fetchedMovies.filter(movie =>
                         movie.title.toLowerCase().includes(query.toLowerCase())
                     );
-                    setPageTitle(`Resultaten voor "${query}" in geselecteerd genre`);
                 }
 
+                let finalTitle = '';
+                const hasResults = fetchedMovies.length > 0;
+
+                if (genre && query) {
+                    finalTitle = `${hasResults ? 'Resultaten' : 'Geen resultaten'} voor "${query}" in geselecteerd genre`;
+                } else if (genre) {
+                    finalTitle = `${hasResults ? 'Resultaten' : 'Geen resultaten'} voor het geselecteerde genre`;
+                } else if (query) {
+                    finalTitle = `${hasResults ? 'Resultaten' : 'Geen resultaten'} voor "${query}"`;
+                } else {
+                    finalTitle = 'Populaire Films';
+                }
+
+                setPageTitle(finalTitle);
                 setResults(fetchedMovies);
+
             } catch (e) {
                 setError('Er ging iets mis bij het ophalen van de data.');
                 console.error(e);
@@ -67,10 +76,6 @@ function SearchResultsPage() {
 
                 {loading && <p className="loading-message">Bezig met laden...</p>}
                 {error && <p className="error-message">{error}</p>}
-
-                {!loading && results.length === 0 && !error && (
-                    <p>Geen films gevonden die aan je criteria voldoen.</p>
-                )}
 
                 <div className="movie-grid">
                     {results.map(movie => (
