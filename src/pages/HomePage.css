@@ -1,20 +1,30 @@
 .homepage {
     padding: 2rem;
+    background-color: #0f0f1a;
+    min-height: calc(100vh - 80px);
+}
+
+.homepage h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
 }
 
 .movie-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
 }
 
 .loading-message, .error-message {
     text-align: center;
     font-size: 1.2rem;
     padding: 2rem;
+    color: white;
 }
 
 .error-message {
     color: #e94560;
+    font-weight: bold;
 }

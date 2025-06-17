@@ -6,6 +6,9 @@
     padding: 1rem 2rem;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar-brand #brand-link {
@@ -55,4 +58,26 @@
     color: #ccc;
     font-style: italic;
     margin-right: 1rem;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: center;
+    }
+
+    .navbar-links a,
+    .navbar-links button {
+        width: 100%;
+        text-align: center;
+    }
 }

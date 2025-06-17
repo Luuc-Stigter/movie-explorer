@@ -1,4 +1,5 @@
 import React from 'react';
+import './MovieCard.css';
 
 function MovieCard({ movie }) {
     const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -10,8 +11,10 @@ function MovieCard({ movie }) {
             ) : (
                 <div className="no-poster">Geen poster beschikbaar</div>
             )}
-            <h3>{movie.title}</h3>
-            <p>Score: {movie.vote_average.toFixed(1)}</p>
+            <div className="card-content">
+                <h3>{movie.title}</h3>
+                <p>Score: {movie.vote_average.toFixed(1)}</p>
+            </div>
         </div>
     );
 }
