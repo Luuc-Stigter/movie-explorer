@@ -12,6 +12,18 @@ function AuthContextProvider({ children }) {
         status: 'pending',
     });
     const navigate = useNavigate();
+    const [favorites, setFavorites] = useState([]);
+
+    useEffect(() => {
+        if (isAuth.isAuthenticated) {
+            const storedFavorites = localStorage.getItem(`favorites_${isAuth.user.id}`);
+            if (storedFavorites) {
+                setFavorites(JSON.parse(storedFavorites));
+            }
+        } else {
+            setFavorites([]);
+        }
+    }, [isAuth.isAuthenticated]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -86,11 +98,26 @@ function AuthContextProvider({ children }) {
         navigate('/');
     }
 
+    const addFavorite = (movie) => {
+        const newFavorites = [...favorites, movie];
+        setFavorites(newFavorites);
+        localStorage.setItem(`favorites_${isAuth.user.id}`, JSON.stringify(newFavorites));
+    };
+
+    const removeFavorite = (movieId) => {
+        const newFavorites = favorites.filter(fav => fav.id !== movieId);
+        setFavorites(newFavorites);
+        localStorage.setItem(`favorites_${isAuth.user.id}`, JSON.stringify(newFavorites));
+    };
+
     const contextData = {
         isAuth: isAuth.isAuthenticated,
         user: isAuth.user,
         login: login,
         logout: logout,
+        favorites,
+        addFavorite,
+        removeFavorite,
     };
 
     return (

@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import MovieDetailPage from './pages/MovieDetailPage';
+import PrivateRoute from './components/PrivateRoute';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
     return (
@@ -17,6 +19,7 @@ function App() {
                     <Route path="/inloggen" element={<SignInPage />} />
                     <Route path="/registreren" element={<SignUpPage />} />
                     <Route path="/movie/:movieId" element={<MovieDetailPage />} />
+                    <Route path="/profiel" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
                 </Routes>
             </main>
         </>
