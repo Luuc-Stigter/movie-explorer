@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+## Installatiehandleiding: Movie Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1. Inleiding
 
-## Available Scripts
+Welkom bij de installatiehandleiding voor **Movie Explorer**. Deze handleiding legt stap voor stap uit hoe je het project lokaal kunt opzetten en draaien met de code-editor WebStorm.
 
-In the project directory, you can run:
+Movie Explorer is een webapplicatie, gebouwd met React, die filmliefhebbers helpt om op één centrale plek films te ontdekken. De applicatie haalt data uit The Movie Database (TMDB) API om uitgebreide informatie over films, acteurs en trailers te tonen. Gebruikers kunnen een account aanmaken, inloggen, door films bladeren, zoeken, filteren en hun favoriete films opslaan.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. Benodigdheden
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Voordat je begint, zorg ervoor dat je de volgende software en gegevens bij de hand hebt.
 
-### `npm test`
+#### Software
+* **Node.js**: De applicatie vereist Node.js. Zorg dat je versie **16.x** of hoger hebt geïnstalleerd.
+* **npm (Node Package Manager)**: Wordt standaard meegeleverd met Node.js.
+* **WebStorm**: Deze handleiding gaat ervan uit dat je WebStorm als code-editor gebruikt.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### API-sleutels en Back-end Gegevens
+Voor de volledige functionaliteit van de applicatie zijn de volgende sleutels nodig. **Deze zijn al in de broncode verwerkt**; je hoeft zelf geen actie te ondernemen.
 
-### `npm run build`
+* **TMDB API Key (v3 Auth)**:
+    * Wordt gebruikt om data op te halen van The Movie Database.
+    * *Sleutel is geïntegreerd in `src/helpers/axios-tmdb.js`*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **NOVI Backend API Key**:
+    * Nodig om te communiceren met de NOVI-backend voor gebruikersregistratie.
+    * **API Key**: `movieexplorer:Uju1R18GcIFG5fRCZwzt`
+    * **Backend URL**: `https://api.datavortex.nl/movieexplorer`
+    * *Sleutel is geïntegreerd in `src/pages/SignUpPage.js`*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Installatie-instructies
 
-### `npm run eject`
+Volg dit stappenplan om de applicatie lokaal op te zetten.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Stap 1: Kloon de Repository in WebStorm** (dit mag je negeren als je het bestand hebt gedownload)
+1.  Open WebStorm.
+2.  Kies in het startscherm voor **"Get from VCS"** (Version Control System).
+3.  Plak de URL van de GitHub repository in het URL-veld.
+4.  Kies een lokale map (Directory) waar je het project wilt opslaan.
+5.  Klik op **"Clone"**. WebStorm downloadt nu het project en opent het.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Stap 2: Installeer de Benodigde Packages**
+Zodra het project geopend is, zal WebStorm waarschijnlijk detecteren dat er een `package.json`-bestand is en vragen om de dependencies te installeren.
+* Als je een pop-up ziet met de vraag "Run 'npm install'?", klik dan op die melding.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Als je geen melding krijgt, kun je de dependencies handmatig installeren:
+1.  Open de **Terminal** binnen WebStorm (meestal onderaan het scherm te vinden).
+2.  Typ het volgende commando en druk op Enter:
+    ```bash
+    npm install
+    ```
+Dit kan enkele minuten duren. `npm` downloadt nu alle benodigde modules.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Stap 3: Start de Applicatie**
+1.  Zorg dat de **Terminal** in WebStorm nog open is.
+2.  Typ het volgende commando om de development server te starten:
+    ```bash
+    npm start
+    ```
+De applicatie wordt nu gecompileerd en opent automatisch een nieuw tabblad in je browser op **http://localhost:3000**. Je kunt nu met de applicatie werken.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 4. Inloggegevens Testaccount
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Om de functionaliteiten voor ingelogde gebruikers te testen, kun je een nieuw account registreren of gebruikmaken van het onderstaande, reeds aangemaakte testaccount:
 
-### Code Splitting
+* **Gebruikersnaam**: `testgebruiker`
+* **Wachtwoord**: `testpassword`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
