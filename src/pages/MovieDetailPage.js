@@ -22,7 +22,6 @@ function MovieDetailPage() {
             try {
                 const response = await tmdb.get(`/movie/${movieId}`);
                 setMovie(response.data);
-                // TODO: Controleer hier of deze film al in de favorietenlijst van de gebruiker staat
             } catch (e) {
                 setError('Kon de filmdetails niet ophalen.');
                 console.error(e);
@@ -42,18 +41,10 @@ function MovieDetailPage() {
     }, [movie]);
 
     const handleToggleFavorite = () => {
-        if (isAuth) {
-            setIsFavorite(!isFavorite); // Toggle de state
-            if (!isFavorite) {
-                console.log(`Film ${movie.title} toegevoegd aan favorieten!`);
-                // TODO: API call om film aan favorieten toe te voegen
-            } else {
-                console.log(`Film ${movie.title} verwijderd uit favorieten!`);
-                // TODO: API call om film uit favorieten te verwijderen
-            }
+        if (isFavorite) {
+            removeFavorite(movie.id);
         } else {
-            console.log("Log in om films aan je favorieten toe te voegen.");
-            // TODO: Stuur gebruiker naar de inlogpagina
+            addFavorite(movie);
         }
     };
 
