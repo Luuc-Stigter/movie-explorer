@@ -13,6 +13,8 @@ function MovieDetailPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [trailers, setTrailers] = useState([]);
+    const [cast, setCast] = useState([]);
+    const [activeTrailer, setActiveTrailer] = useState(null)
 
     const isFavorite = useMemo(() => {
         return favorites.some(fav => fav.id === parseInt(movieId));
@@ -23,17 +25,19 @@ function MovieDetailPage() {
             setLoading(true);
             setError(null);
             try {
-                const [detailsResponse, videosResponse] = await Promise.all([
+                const [detailsResponse, videosResponse, creditsResponse] = await Promise.all([
                     tmdb.get(`/movie/${movieId}`),
-                    tmdb.get(`/movie/${movieId}/videos`)
+                    tmdb.get(`/movie/${movieId}/videos`),
+                    tmdb.get(`/movie/${movieId}/credits`) // Nieuwe call
                 ]);
 
                 setMovie(detailsResponse.data);
 
-                const youtubeTrailers = videosResponse.data.results.filter(video =>
+                setTrailers(videosResponse.data.results.filter(video =>
                     video.site === 'YouTube' && video.type === 'Trailer'
-                );
-                setTrailers(youtubeTrailers);
+                ));
+
+                setCast(creditsResponse.data.cast.slice(0, 10));
 
             } catch (e) {
                 setError('Kon de filmdata niet ophalen.');
@@ -70,6 +74,7 @@ function MovieDetailPage() {
             <header className="detail-header" style={{ backgroundImage: `url(${backdropUrl})` }}>
                 <div className="header-overlay"></div>
             </header>
+
             <div className="container detail-content">
                 <div className="detail-poster">
                     <img src={posterUrl} alt={`Poster van ${movie.title}`} />
@@ -97,15 +102,46 @@ function MovieDetailPage() {
                         <div><strong>Releasedatum:</strong> {new Date(movie.release_date).toLocaleDateString('nl-NL')}</div>
                         <div><strong>Duur:</strong> {movie.runtime} minuten</div>
                     </div>
+
+                    {cast.length > 0 && (
+                        <div className="cast-section">
+                            <h3>Cast</h3>
+                            <div className="cast-grid">
+                                {cast.map(actor => (
+                                    <div key={actor.cast_id} className="actor-card">
+                                        <img
+                                            src={actor.profile_path ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` : '/path/to/default/image.png'}
+                                            alt={actor.name}
+                                        />
+                                        <strong>{actor.name}</strong>
+                                        <span>als {actor.character}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
             {trailers.length > 0 && (
                 <div className="container trailer-section">
                     <h3>Trailers</h3>
-                    {trailers.map(trailer => (
-                        <TrailerPlayer key={trailer.id} videoKey={trailer.key} />
-                    ))}
+                    <div className="trailer-buttons">
+                        {trailers.map(trailer => (
+                            <button key={trailer.id} className="trailer-btn" onClick={() => setActiveTrailer(trailer.key)}>
+                                {trailer.name}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {activeTrailer && (
+                <div className="modal-overlay" onClick={() => setActiveTrailer(null)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close-btn" onClick={() => setActiveTrailer(null)}>X</button>
+                        <TrailerPlayer videoKey={activeTrailer} />
+                    </div>
                 </div>
             )}
         </div>
