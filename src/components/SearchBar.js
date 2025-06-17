@@ -1,5 +1,3 @@
-// src/components/SearchBar.js
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tmdb from '../helpers/axios-tmdb';
@@ -7,6 +5,7 @@ import './SearchBar.css';
 
 function SearchBar() {
     const [query, setQuery] = useState('');
+    const [selectedGenre, setSelectedGenre] = useState('');
     const [genres, setGenres] = useState([]);
     const navigate = useNavigate();
 
@@ -22,27 +21,26 @@ function SearchBar() {
         fetchGenres();
     }, []);
 
-    const handleTextSearch = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        if (query.trim()) {
-            navigate(`/search?query=${encodeURIComponent(query)}`);
-            setQuery('');
-        }
-    };
 
-    const handleGenreFilter = (e) => {
-        const genreId = e.target.value;
-        if (genreId) {
-            navigate(`/search?genre=${genreId}`);
+        const params = new URLSearchParams();
+        if (query.trim()) {
+            params.append('query', query.trim());
+        }
+        if (selectedGenre) {
+            params.append('genre', selectedGenre);
+        }
+
+        if (params.toString()) {
+            navigate(`/search?${params.toString()}`);
         } else {
-            // Optioneel: navigeer naar de homepagina als "Alle Genres" is gekozen
             navigate('/');
         }
     };
 
     return (
-        // De form-tag is nu alleen voor de tekst-zoekopdracht
-        <form className="search-and-filter-bar" onSubmit={handleTextSearch}>
+        <form className="search-and-filter-bar" onSubmit={handleSubmit}>
             <input
                 type="text"
                 className="search-input"
@@ -50,11 +48,11 @@ function SearchBar() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Zoek op titel..."
             />
-            <button type="submit" className="search-button">Zoek</button>
-
-            {/* De genre-filter staat naast de zoekbalk */}
-            <select className="genre-select" onChange={handleGenreFilter} defaultValue="">
-                <option value="" disabled>... of filter op genre</option>
+            <select
+                className="genre-select"
+                value={selectedGenre}
+                onChange={(e) => setSelectedGenre(e.target.value)}
+            >
                 <option value="">Alle Genres</option>
                 {genres.map(genre => (
                     <option key={genre.id} value={genre.id}>
@@ -62,6 +60,7 @@ function SearchBar() {
                     </option>
                 ))}
             </select>
+            <button type="submit" className="search-button">Zoek</button>
         </form>
     );
 }
