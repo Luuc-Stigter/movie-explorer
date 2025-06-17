@@ -78,6 +78,13 @@
     border-radius: 10px;
 }
 
+.search-bar-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
 @media (max-width: 768px) {
     .navbar-controls {
         gap: 0;
@@ -110,5 +117,9 @@
     .hamburger {
         display: flex;
         order: 1;
+    }
+
+    .search-bar-container {
+        display: none;
     }
 }

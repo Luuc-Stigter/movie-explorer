@@ -8,6 +8,7 @@ import SignUpPage from './pages/SignUpPage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import PrivateRoute from './components/PrivateRoute';
 import ProfilePage from './pages/ProfilePage';
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/registreren" element={<SignUpPage />} />
                     <Route path="/movie/:movieId" element={<MovieDetailPage />} />
                     <Route path="/profiel" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+                    <Route path="/search" element={<SearchResultsPage />} />
                 </Routes>
             </main>
         </>
