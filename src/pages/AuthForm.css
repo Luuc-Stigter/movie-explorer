@@ -77,6 +77,17 @@
     background-color: #b82c44;
 }
 
+.success-message {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid #28a745;
+    border-radius: 5px;
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
 .error-message {
     background-color: rgba(233, 69, 96, 0.1);
     color: #e94560;

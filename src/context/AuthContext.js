@@ -43,7 +43,7 @@ function AuthContextProvider({ children }) {
 
         } catch (e) {
             console.error("Onjuiste email of wachtwoord", e);
-
+            throw e;
         }
     }
 

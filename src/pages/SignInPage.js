@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './AuthForm.css'; // Importeer de gedeelde CSS
 
@@ -8,6 +8,7 @@ function SignInPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null); // Lokale error state
     const { login } = useContext(AuthContext);
+    const location = useLocation();
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -23,6 +24,7 @@ function SignInPage() {
     return (
         <div className="auth-form-page">
             <div className="form-container">
+                {location.state?.message && <div className="success-message">{location.state.message}</div>}
                 <h1>Inloggen</h1>
                 <p>Log in om je favorieten te bekijken.</p>
                 <form onSubmit={handleSubmit} className="auth-form">

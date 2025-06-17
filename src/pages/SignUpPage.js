@@ -25,7 +25,11 @@ function SignUpPage() {
                     'X-Api-Key': 'movieexplorer:Uju1R18GcIFG5fRCZwzt',
                 }
             });
-            navigate('/inloggen');
+            navigate('/inloggen', {
+                state: {
+                    message: 'Registratie gelukt! Je kunt nu inloggen.'
+                }
+            });
         } catch (e) {
             console.error("Registratie mislukt", e);
             setError("Registratie mislukt. Probeer een andere gebruikersnaam of e-mailadres.");
