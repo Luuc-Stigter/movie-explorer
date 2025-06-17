@@ -2,34 +2,47 @@ import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import tmdb from '../helpers/axios-tmdb';
 import { AuthContext } from '../context/AuthContext';
+import TrailerPlayer from '../components/TrailerPlayer';
 import './MovieDetailPage.css';
 
 function MovieDetailPage() {
     const { movieId } = useParams();
+    const { isAuth, favorites, addFavorite, removeFavorite } = useContext(AuthContext);
+
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const { isAuth, favorites, addFavorite, removeFavorite } = useContext(AuthContext);
+    const [trailers, setTrailers] = useState([]);
 
     const isFavorite = useMemo(() => {
         return favorites.some(fav => fav.id === parseInt(movieId));
     }, [favorites, movieId]);
 
     useEffect(() => {
-        async function fetchMovie() {
+        async function fetchMovieData() {
             setLoading(true);
             setError(null);
             try {
-                const response = await tmdb.get(`/movie/${movieId}`);
-                setMovie(response.data);
+                const [detailsResponse, videosResponse] = await Promise.all([
+                    tmdb.get(`/movie/${movieId}`),
+                    tmdb.get(`/movie/${movieId}/videos`)
+                ]);
+
+                setMovie(detailsResponse.data);
+
+                const youtubeTrailers = videosResponse.data.results.filter(video =>
+                    video.site === 'YouTube' && video.type === 'Trailer'
+                );
+                setTrailers(youtubeTrailers);
+
             } catch (e) {
-                setError('Kon de filmdetails niet ophalen.');
+                setError('Kon de filmdata niet ophalen.');
                 console.error(e);
             }
             setLoading(false);
         }
 
-        fetchMovie();
+        fetchMovieData();
     }, [movieId]);
 
     const backdropUrl = useMemo(() => {
@@ -86,6 +99,15 @@ function MovieDetailPage() {
                     </div>
                 </div>
             </div>
+
+            {trailers.length > 0 && (
+                <div className="container trailer-section">
+                    <h3>Trailers</h3>
+                    {trailers.map(trailer => (
+                        <TrailerPlayer key={trailer.id} videoKey={trailer.key} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
