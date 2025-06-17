@@ -1,9 +1,7 @@
-// src/pages/HomePage.js
-
 import React, { useState, useEffect } from 'react';
 import tmdb from '../helpers/axios-tmdb';
 import MovieCard from '../components/MovieCard';
-import './HomePage.css'; // Zorg dat de import er is
+import './HomePage.css';
 
 function HomePage() {
     const [movies, setMovies] = useState([]);
@@ -11,7 +9,6 @@ function HomePage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // ... je useEffect code blijft hetzelfde ...
         async function fetchPopularMovies() {
             setLoading(true);
             setError(null);
@@ -29,7 +26,6 @@ function HomePage() {
 
     return (
         <div className="homepage">
-            {/* Hier voegen we de container toe */}
             <div className="container">
                 <h1>Populaire Films</h1>
 

@@ -9,10 +9,11 @@ function MovieDetailPage() {
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { isAuth, favorites, addFavorite, removeFavorite } = useContext(AuthContext);
 
-    const { isAuth } = useContext(AuthContext);
-
-    const [isFavorite, setIsFavorite] = useState(false);
+    const isFavorite = useMemo(() => {
+        return favorites.some(fav => fav.id === parseInt(movieId));
+    }, [favorites, movieId]);
 
     useEffect(() => {
         async function fetchMovie() {

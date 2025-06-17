@@ -1,0 +1,15 @@
+.profile-page {
+    padding: 2rem 0;
+    color: white;
+}
+
+.profile-page h1 {
+    border-bottom: 2px solid #e94560;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.profile-page h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
