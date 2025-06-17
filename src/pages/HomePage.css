@@ -44,3 +44,10 @@
     color: #e94560;
     font-weight: bold;
 }
+
+.search-title {
+    text-align: left;
+    font-size: 2rem;
+    border-bottom: 2px solid #e94560;
+    padding-bottom: 1rem;
+}

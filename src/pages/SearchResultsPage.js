@@ -1,8 +1,10 @@
+// src/pages/SearchResultsPage.js
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import tmdb from '../helpers/axios-tmdb';
 import MovieCard from '../components/MovieCard';
-import './SearchResultsPage.css';
+import './HomePage.css';
 
 function SearchResultsPage() {
     const [searchParams] = useSearchParams();
@@ -33,13 +35,14 @@ function SearchResultsPage() {
     }, [query]);
 
     return (
-        <div className="search-results-page">
+        <div className="homepage">
             <div className="container">
-                <h1>Zoekresultaten voor "{query}"</h1>
+                <h1 className="search-title">Zoekresultaten voor "{query}"</h1>
+
                 {loading && <p className="loading-message">Bezig met zoeken...</p>}
                 {error && <p className="error-message">{error}</p>}
 
-                {!loading && results.length === 0 && (
+                {!loading && results.length === 0 && !error && (
                     <p>Geen films gevonden die overeenkomen met je zoekopdracht.</p>
                 )}
 
