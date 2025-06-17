@@ -1,15 +1,39 @@
 .profile-page {
     padding: 2rem 0;
     color: white;
+    min-height: calc(100vh - 80px);
 }
 
-.profile-page h1 {
+.profile-header {
+    text-align: center;
+    padding: 2rem;
+    background-color: #1a1a2e;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.profile-header h1 {
+    margin: 0 0 0.5rem 0;
+    color: #e94560;
+}
+
+.profile-header p {
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.favorites-section h2 {
+    font-size: 2rem;
     border-bottom: 2px solid #e94560;
     padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
-.profile-page h2 {
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
+.no-favorites-message {
+    background-color: #1a1a2e;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #ccc;
 }
