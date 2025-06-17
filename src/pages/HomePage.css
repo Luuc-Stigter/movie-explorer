@@ -1,5 +1,5 @@
 .homepage {
-    padding: 2rem;
+    padding: 2rem 1rem;
     background-color: #0f0f1a;
     min-height: calc(100vh - 80px);
 }
@@ -13,8 +13,24 @@
 
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
+
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .homepage {
+        padding: 2rem;
+    }
 }
 
 .loading-message, .error-message {

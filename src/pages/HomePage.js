@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import tmdb from '../helpers/axios-tmdb';
 import MovieCard from '../components/MovieCard';
+import './HomePage.css'; // Zorg dat de import er is
 
 function HomePage() {
     const [movies, setMovies] = useState([]);
@@ -10,6 +11,7 @@ function HomePage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        // ... je useEffect code blijft hetzelfde ...
         async function fetchPopularMovies() {
             setLoading(true);
             setError(null);
@@ -22,21 +24,23 @@ function HomePage() {
             }
             setLoading(false);
         }
-
         fetchPopularMovies();
     }, []);
 
     return (
         <div className="homepage">
-            <h1>Populaire Films</h1>
+            {/* Hier voegen we de container toe */}
+            <div className="container">
+                <h1>Populaire Films</h1>
 
-            {loading && <p className="loading-message">Laden...</p>}
-            {error && <p className="error-message">{error}</p>}
+                {loading && <p className="loading-message">Laden...</p>}
+                {error && <p className="error-message">{error}</p>}
 
-            <div className="movie-grid">
-                {movies.map(movie => (
-                    <MovieCard key={movie.id} movie={movie} />
-                ))}
+                <div className="movie-grid">
+                    {movies.map(movie => (
+                        <MovieCard key={movie.id} movie={movie} />
+                    ))}
+                </div>
             </div>
         </div>
     );
