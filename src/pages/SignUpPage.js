@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './AuthForm.css';
 
 function SignUpPage() {
     const [email, setEmail] = useState('');
@@ -11,8 +12,7 @@ function SignUpPage() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setError(null); // Reset error state
-
+        setError(null);
         try {
             await axios.post('https://api.datavortex.nl/movieexplorer/users', {
                 username: username,
@@ -25,40 +25,38 @@ function SignUpPage() {
                     'X-Api-Key': 'movieexplorer:Uju1R18GcIFG5fRCZwzt',
                 }
             });
-
-            // Navigeer naar de inlogpagina na succesvolle registratie
             navigate('/inloggen');
-
         } catch (e) {
             console.error("Registratie mislukt", e);
-            setError("Er is iets misgegaan bij de registratie. Probeer een andere gebruikersnaam.");
+            setError("Registratie mislukt. Probeer een andere gebruikersnaam of e-mailadres.");
         }
     }
 
     return (
-        <div>
-            <h1>Registreren</h1>
-            <p>Maak een account aan om films aan je favorieten toe te voegen.</p>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username-field">
-                    Gebruikersnaam:
-                    <input type="text" id="username-field" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </label>
-                <br />
-                <label htmlFor="email-field">
-                    Email:
-                    <input type="email" id="email-field" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </label>
-                <br />
-                <label htmlFor="password-field">
-                    Wachtwoord:
-                    <input type="password" id="password-field" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </label>
-                <br />
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">Registreren</button>
-            </form>
-            <p>Heb je al een account? <Link to="/inloggen">Log hier in</Link>.</p>
+        <div className="auth-form-page">
+            <div className="form-container">
+                <h1>Registreren</h1>
+                <p>Maak een account om je favoriete films op te slaan.</p>
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <label>
+                        <span>Gebruikersnaam:</span>
+                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                    </label>
+                    <label>
+                        <span>E-mailadres:</span>
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    </label>
+                    <label>
+                        <span>Wachtwoord:</span>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength="6" />
+                    </label>
+                    <button type="submit">Registreren</button>
+                </form>
+                {error && <div className="error-message">{error}</div>}
+                <p className="switch-link">
+                    Heb je al een account? <Link to="/inloggen">Log hier in</Link>.
+                </p>
+            </div>
         </div>
     );
 }
