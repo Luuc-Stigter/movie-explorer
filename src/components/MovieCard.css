@@ -49,3 +49,8 @@
     margin: 0;
     font-weight: bold;
 }
+
+.movie-card-link {
+    text-decoration: none;
+    color: inherit;
+}

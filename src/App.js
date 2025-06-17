@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
+import MovieDetailPage from './pages/MovieDetailPage';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/inloggen" element={<SignInPage />} />
                     <Route path="/registreren" element={<SignUpPage />} />
+                    <Route path="/movie/:movieId" element={<MovieDetailPage />} />
                 </Routes>
             </main>
         </>
