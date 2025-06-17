@@ -18,6 +18,12 @@
     text-decoration: none;
 }
 
+.navbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
 .navbar-links {
     display: flex;
     align-items: center;
@@ -34,6 +40,7 @@
     border: none;
     cursor: pointer;
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 
 .navbar-links a:hover,
@@ -49,21 +56,6 @@
 
 .navbar-links a[href="/registreren"]:hover {
     background-color: #b82c44;
-}
-
-.welcome-message-desktop {
-    color: #ccc;
-    font-style: italic;
-    margin-left: auto;
-    margin-right: 1.5rem;
-}
-
-.welcome-message-mobile {
-    display: none;
-    color: #ccc;
-    font-style: italic;
-    padding: 0.5rem 1rem;
-    text-align: center;
 }
 
 .hamburger {
@@ -84,10 +76,13 @@
     height: 0.25rem;
     background-color: white;
     border-radius: 10px;
-    transition: all 0.3s linear;
 }
 
 @media (max-width: 768px) {
+    .navbar-controls {
+        gap: 0;
+    }
+
     .navbar-links {
         display: none;
         flex-direction: column;
@@ -97,7 +92,7 @@
         width: 100%;
         background-color: #1a1a2e;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding-bottom: 1rem;
+        padding: 1rem 0;
     }
 
     .navbar-links.active {
@@ -109,17 +104,11 @@
         width: 100%;
         text-align: center;
         padding: 1rem 0;
+        gap: 1rem;
     }
 
     .hamburger {
         display: flex;
-    }
-
-    .welcome-message-desktop {
-        display: none;
-    }
-
-    .welcome-message-mobile {
-        display: block;
+        order: 1;
     }
 }

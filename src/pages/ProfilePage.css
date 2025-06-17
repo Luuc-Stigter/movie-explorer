@@ -2,12 +2,12 @@
     padding: 2rem 0;
     color: white;
     min-height: calc(100vh - 80px);
+    background-color: #1a1a2e;
 }
 
 .profile-header {
     text-align: center;
     padding: 2rem;
-    background-color: #1a1a2e;
     border-radius: 12px;
     margin-bottom: 3rem;
 }
