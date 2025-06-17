@@ -1,6 +1,7 @@
 .detail-page {
     color: white;
     background-color: #0f0f1a;
+    padding-bottom: 3rem;
 }
 
 .detail-header {
@@ -21,8 +22,9 @@
 
 .detail-content {
     display: flex;
+    justify-content: center;
     gap: 2rem;
-    padding: 2rem 0;
+    padding: 2rem 1.5rem;
     transform: translateY(-150px);
 }
 

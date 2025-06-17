@@ -1,0 +1,11 @@
+.search-results-page {
+    padding: 2rem 0;
+    color: white;
+    min-height: calc(100vh - 80px);
+}
+
+.search-results-page h1 {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e94560;
+    padding-bottom: 1rem;
+}

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import './NavBar.css';
+import SearchBar from './SearchBar'; // Importeer de SearchBar
 
 function NavBar() {
     const { isAuth, logout } = useContext(AuthContext);
@@ -19,6 +20,10 @@ function NavBar() {
         <nav className="navbar">
             <div className="navbar-brand">
                 <Link to="/" id="brand-link" onClick={closeMenu}>Movie Explorer</Link>
+            </div>
+
+            <div className="search-bar-container">
+                <SearchBar />
             </div>
 
             <div className="navbar-controls">
